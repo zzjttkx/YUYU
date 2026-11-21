@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>冬日来信</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            min-height: 100vh;
+            background: #1a1a26;
+            font-family: "KaiTi", "STKaiti", serif;
+            overflow-x: hidden;
+            position: relative;
+        }
+        /* 雪花容器 */
+        #snow-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        .snow {
+            position: absolute;
+            background: #fff;
+            border-radius: 50%;
+            opacity: 0.8;
+            animation: fall linear infinite;
+        }
+        @keyframes fall {
+            0% {
+                transform: translateY(-10px) rotate(0deg);
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0.1;
+            }
+        }
+        /* 信封 */
+        .envelope-wrap {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 10;
+            background: #1a1a26;
+            transition: opacity 1.2s ease;
+        }
+        .envelope {
+            width: 320px;
+            height: 220px;
+            background-color: #f3e9dc;
+            border-radius: 4px;
+            position: relative;
+            cursor: pointer;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.35);
+        }
+        .envelope-flap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 110px;
+            background: #e9dcc9;
+            clip-path: polygon(0 0, 50% 100%, 100% 0);
+            transform-origin: top center;
+            transition: transform 1s ease-in-out;
+        }
+        .envelope.open .envelope-flap {
+            transform: rotateX(-180deg);
+        }
+        .tip-text {
+            position: absolute;
+            bottom: -40px;
+            width: 100%;
+            text-align: center;
+            color: #f0e6d8;
+            font-size: 15px;
+            letter-spacing: 2px;
+        }
+        /* 信纸内容 */
+        .letter-content {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 60px 24px 80px;
+            position: relative;
+            z-index: 2;
+            opacity: 0;
+            transition: opacity 1.5s ease;
+        }
+        .letter-content.show {
+            opacity: 1;
+        }
+        .paper {
+            background: #fffbf5;
+            padding: 40px 32px;
+            border-radius: 12px;
+            box-shadow: 0 4px 25px rgba(0,0,0,0.2);
+        }
+        h1 {
+            text-align: center;
+            color: #7c5c48;
+            font-size: 28px;
+            margin-bottom: 30px;
+            letter-spacing: 4px;
+        }
+        p {
+            color: #5a4435;
+            font-size: 18px;
+            line-height: 2;
+            margin-bottom: 24px;
+            text-indent: 2em;
+        }
+        .photo-box {
+            width: 85%;
+            margin: 36px auto;
+            padding: 12px;
+            background: #fff;
+            box-shadow: 2px 3px 12px rgba(0,0,0,0.15);
+            transform: rotate(var(--r, 1.5deg));
+            opacity: 0;
+            transition: opacity 1.2s ease;
+        }
+        .photo-box.show {
+            opacity: 1;
+        }
+        .photo-box img {
+            width: 100%;
+            display: block;
+            border-radius: 4px;
+        }
+        .sign {
+            text-align: right;
+            margin-top: 40px;
+            font-size: 18px;
+            color: #7c5c48;
+        }
+        @media (max-width: 500px) {
+            .paper {
+                padding: 24px 18px;
+            }
+            p {
+                font-size: 16px;
+            }
+            h1 {
+                font-size: 22px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="snow-container"></div>
+
+    <!-- 信封 -->
+    <div class="envelope-wrap" id="envelopeWrap">
+        <div class="envelope" id="envelope">
+            <div class="envelope-flap"></div>
+            <div class="tip-text">点击信封，拆开冬日来信</div>
+        </div>
+    </div>
+
+    <!-- 信纸正文 -->
+    <div class="letter-content" id="letter">
+        <div class="paper">
+            <h1>冬日来信</h1>
+            <p>亲爱的：</p>
+            <p>冬天慢慢来了，风开始变凉，天黑得也早。可只要身边是你，再冷的日子，心里也是暖融融的。</p>
+            <div class="photo-box" style="--r:1deg;">
+                <!-- 第一张照片，替换成你的图片地址 -->
+                <img src="img1.jpg" alt="我们">
+            </div>
+            <p>我很喜欢和你一起走在夜里的街道，像这样并肩往前走，不用多说什么，牵着你的手，就觉得很安心。</p>
+            <div class="photo-box" style="--r:-1.2deg;">
+                <!-- 第二张照片，替换成你的图片地址 -->
+                <img src="img2.jpg" alt="我们">
+            </div>
+            <p>四季轮转，秋天落幕，冬天登场。我盼着往后每一个冬天，都可以和你一起，看灯火，等晚风，慢慢走向属于我们的以后。</p>
+            <div class="photo-box" style="--r:0.8deg;">
+                <!-- 第三张照片，替换成你的图片地址 -->
+                <img src="img3.jpg" alt="我们">
+            </div>
+            <p>愿这个冬天，风雪温柔，我们长久。
+            岁岁年年，身边一直是你。</p>
+            <div class="sign">你的男孩<br>于冬日</div>
+        </div>
+    </div>
+
+    <script>
+        // 雪花
+        function createSnow() {
+            const container = document.getElementById('snow-container');
+            const snowCount = 60;
+            for(let i = 0; i < snowCount; i++) {
+                const snow = document.createElement('div');
+                snow.className = 'snow';
+                const size = Math.random() * 4 + 1;
+                snow.style.width = size + 'px';
+                snow.style.height = size + 'px';
+                snow.style.left = Math.random() * 100 + '%';
+                snow.style.animationDuration = Math.random() * 6 + 4 + 's';
+                snow.style.animationDelay = Math.random() * 5 + 's';
+                container.appendChild(snow);
+            }
+        }
+        createSnow();
+
+        // 信封打开逻辑
+        const envelope = document.getElementById('envelope');
+        const envelopeWrap = document.getElementById('envelopeWrap');
+        const letter = document.getElementById('letter');
+        const photoList = document.querySelectorAll('.photo-box');
+        envelope.onclick = function() {
+            envelope.classList.add('open');
+            setTimeout(()=>{
+                envelopeWrap.style.opacity = 0;
+                setTimeout(()=>{
+                    envelopeWrap.style.display = 'none';
+                    letter.classList.add('show');
+                    // 依次展示照片
+                    photoList.forEach((item, idx)=>{
+                        setTimeout(()=>{
+                            item.classList.add('show');
+                        }, 600 + idx * 1200)
+                    })
+                }, 1200)
+            }, 800)
+        }
+    </script>
+</body>
+</html>
